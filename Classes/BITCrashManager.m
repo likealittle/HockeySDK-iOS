@@ -401,9 +401,13 @@ NSString *const kBITCrashManagerStatus = @"BITCrashManagerStatus";
   
   if (!_sendingInProgress && [self hasPendingCrashReport]) {
     _sendingInProgress = YES;
+    BOOL shouldShowAlert = YES;
+    if ([self.delegate respondsToSelector:@selector(crashManagerShouldShowSubmitCrashReportAlert:)]) {
+      shouldShowAlert = [self.delegate crashManagerShouldShowSubmitCrashReportAlert:self];
+    }
     if (!BITHockeyBundle()) {
       [self sendCrashReports];
-    } else if (_crashManagerStatus != BITCrashManagerStatusAutoSend && [self hasNonApprovedCrashReports]) {
+    } else if (_crashManagerStatus != BITCrashManagerStatusAutoSend && [self hasNonApprovedCrashReports] && shouldShowAlert) {
       
       if (self.delegate != nil && [self.delegate respondsToSelector:@selector(crashManagerWillShowSubmitCrashReportAlert:)]) {
         [self.delegate crashManagerWillShowSubmitCrashReportAlert:self];

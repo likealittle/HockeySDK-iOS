@@ -18,5 +18,5 @@ profile
 *.swp
 *~.nib
 profile
-
+Support/build/
 documentation/

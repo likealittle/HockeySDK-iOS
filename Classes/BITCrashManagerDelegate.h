@@ -127,4 +127,10 @@
  */
 - (void)crashManagerDidFinishSendingCrashReport:(BITCrashManager *)crashManager;
 
+/** Invoked before showing alert for sending crash reports
+ 
+ @param crashManager The `BITCrashManager` instance invoking this delegate
+ */
+- (BOOL)crashManagerShouldShowSubmitCrashReportAlert:(BITCrashManager *)crashManager;
+
 @end
